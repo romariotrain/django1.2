@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 
 DATA = {
     'omlet': {
@@ -18,6 +19,42 @@ DATA = {
     },
     # можете добавить свои рецепты ;)
 }
+omlet = DATA['omlet']
+
+
+
+def omlet_recipe(request):
+    servings = int(request.GET.get('servings', 1))
+    omlet = DATA['omlet']
+    for ingredients in omlet:
+        omlet[ingredients] = omlet[ingredients] * servings
+    context = {'recipe': omlet}
+    return render(request, 'calculator/index.html', context)
+
+
+def pasta_recipe(request):
+    servings = int(request.GET.get('servings', 1))
+    pasta = DATA['pasta']
+    for ingredients in pasta:
+        pasta[ingredients] = pasta[ingredients] * servings
+    context = {'recipe': pasta}
+    pasta = DATA['pasta']
+    return render(request, 'calculator/index.html', context)
+
+def buter_recipe(request):
+    servings = int(request.GET.get('servings', 1))
+    buter = DATA['buter']
+    for ingredients in buter:
+        buter[ingredients] = buter[ingredients] * servings
+    context = {'recipe': buter}
+    buter = DATA['buter']
+    return render(request, 'calculator/index.html', context)
+
+
+
+
+
+
 
 # Напишите ваш обработчик. Используйте DATA как источник данных
 # Результат - render(request, 'calculator/index.html', context)
@@ -28,3 +65,4 @@ DATA = {
 #     'ингредиент2': количество2,
 #   }
 # }
+
